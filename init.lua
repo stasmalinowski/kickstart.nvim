@@ -218,6 +218,13 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
+-- toggle line wrap
+vim.o.linebreak = true
+vim.o.breakindent = true
+vim.keymap.set('n', '<leader>pw', function()
+  vim.o.wrap = not vim.o.wrap
+end)
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -703,7 +710,6 @@ require('lazy').setup({
         -- gopls = {},
         ruff = {},
         pyright = {},
-        hls = {},
         jdtls = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -766,7 +772,15 @@ require('lazy').setup({
       }
     end,
   },
-
+  {
+    'mrcjkb/haskell-tools.nvim',
+    -- To avoid being surprised by breaking changes,
+    -- I recommend you set a version range
+    version = '^8',
+    -- This plugin implements proper lazy-loading (see :h lua-plugin-lazy).
+    -- No need for lazy.nvim to lazy-load it.
+    lazy = false,
+  },
   { -- Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
@@ -867,6 +881,8 @@ require('lazy').setup({
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'default',
+
+        ['<tab>'] = false,
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -1003,7 +1019,7 @@ require('lazy').setup({
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
