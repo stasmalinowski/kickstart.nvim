@@ -193,6 +193,8 @@ return {
           },
         },
         stylua = {},
+        ["ocaml-lsp"] = {},
+        ocamlformat = {},
       }
 
       -- Ensure the servers and tools above are installed
